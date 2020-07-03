@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  webservice:
+    build:
+      context: .devcontainer
+      dockerfile: Dockerfile
+    command: sleep infinity
+    ports:
+      - 8888:8888 # development
+      - 9999:9999 # serve
+    volumes:
+      - ./:/workspace
+      - ./gradle-docker/:/home/vscode/.gradle

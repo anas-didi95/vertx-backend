@@ -1,0 +1,8 @@
+{
+  "java.project.referencedLibraries": [
+    "lib/**/*.jar",
+    "/workspace/**/*.jar",
+    "/home/vscode/.gradle/**/*.jar"
+	],
+	"java.dependency.syncWithFolderExplorer": false
+}
