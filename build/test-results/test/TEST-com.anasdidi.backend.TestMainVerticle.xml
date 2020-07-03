@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.anasdidi.backend.TestMainVerticle" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-07-03T09:09:25" hostname="46a92b20afac" time="0.897">
-  <properties/>
-  <testcase name="verticle_deployed(Vertx, VertxTestContext)" classname="com.anasdidi.backend.TestMainVerticle" time="0.897"/>
-  <system-out><![CDATA[HTTP server started on port 8888
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
