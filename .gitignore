@@ -1,6 +1,5 @@
 gradle-docker/
 build/
-gradle/
 
 ### Vert.x ###
 .vertx/
