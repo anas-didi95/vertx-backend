@@ -1,11 +1,12 @@
 package com.anasdidi.backend.domain.echo;
 
-import com.anasdidi.backend.common.CommonContstant;
+import com.anasdidi.backend.common.CommonConstant;
 import com.anasdidi.backend.common.CommonVerticle;
 
 import io.vertx.core.Promise;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
+import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 
@@ -28,14 +29,19 @@ public class EchoVerticle extends CommonVerticle {
     String s = request.getParam("s");
 
     HttpServerResponse response = routingContext.response();
-    sendResponse(response, CommonContstant.Status.OK, (s != null && !s.isBlank() ? s : "Hello World"));
+    sendResponse(response, CommonConstant.Status.OK, (s != null && !s.isBlank() ? s : "Hello World"));
   }
 
   public void doHelloName(RoutingContext routingContext) {
+    final String TAG = "[EchoVerticle::doHelloName]";
+
     HttpServerRequest request = routingContext.request();
-    String name = request.getParam("name");
+    JsonObject requestBody = new JsonObject()//
+        .put("name", request.getParam("name"));
+    vertx.eventBus().send(CommonConstant.Event.LOGGER_DEBUG.key(),
+        TAG + " :: requestBody=" + requestBody.encodePrettily());
 
     HttpServerResponse response = routingContext.response();
-    sendResponse(response, CommonContstant.Status.OK, "Hello " + name);
+    sendResponse(response, CommonConstant.Status.OK, "Hello " + requestBody.getString("name"));
   }
 }

@@ -6,7 +6,7 @@ import io.vertx.core.json.JsonObject;
 
 public abstract class CommonVerticle extends AbstractVerticle {
 
-  protected void sendResponse(HttpServerResponse response, CommonContstant.Status status, String body) {
+  protected void sendResponse(HttpServerResponse response, CommonConstant.Status status, String body) {
     response//
         .putHeader("Content-Type", "application/json")//
         .putHeader("Accept", "aplication/json");

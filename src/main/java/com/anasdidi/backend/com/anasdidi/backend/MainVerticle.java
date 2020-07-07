@@ -6,6 +6,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
+import logger.LoggerVerticle;
 
 public class MainVerticle extends AbstractVerticle {
 
@@ -21,6 +22,7 @@ public class MainVerticle extends AbstractVerticle {
 
     Router router = Router.router(vertx);
     router.route().handler(BodyHandler.create());
+    vertx.deployVerticle(new LoggerVerticle());
     vertx.deployVerticle(new EchoVerticle(router));
 
     vertx.createHttpServer().requestHandler(router).listen(port, http -> {
