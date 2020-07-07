@@ -24,8 +24,11 @@ public class EchoVerticle extends CommonVerticle {
   }
 
   public void doHelloWorld(RoutingContext routingContext) {
+    HttpServerRequest request = routingContext.request();
+    String s = request.getParam("s");
+
     HttpServerResponse response = routingContext.response();
-    sendResponse(response, CommonContstant.Status.OK, "Hello World");
+    sendResponse(response, CommonContstant.Status.OK, (s != null && !s.isBlank() ? s : "Hello World"));
   }
 
   public void doHelloName(RoutingContext routingContext) {

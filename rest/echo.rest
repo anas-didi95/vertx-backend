@@ -3,6 +3,11 @@ Accept: application/json
 Content-Type: application/json
 
 ###
+http://localhost:8888/echo?s=thanks
+Accept: application/json
+Content-Length: application/json
+
+###
 
 http://localhost:8888/echo/anas
 Accept: application/json
