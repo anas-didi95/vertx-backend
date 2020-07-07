@@ -13,11 +13,19 @@ import io.vertx.core.eventbus.Message;
 public class LoggerVerticle extends CommonVerticle {
 
   private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+  private final boolean isDebug;
+
+  public LoggerVerticle(boolean isDebug) {
+    this.isDebug = isDebug;
+  }
 
   @Override
   public void start(Promise<Void> startPromise) throws Exception {
     EventBus eventBus = vertx.eventBus();
-    eventBus.consumer(CommonConstant.Event.LOGGER_DEBUG.key()).handler(this::eventLogDebug);
+
+    if (isDebug) {
+      eventBus.consumer(CommonConstant.Event.LOGGER_DEBUG.key()).handler(this::eventLogDebug);
+    }
   }
 
   private void eventLogDebug(Message<Object> msg) {
