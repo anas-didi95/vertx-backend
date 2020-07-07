@@ -1,14 +1,15 @@
 package com.anasdidi.backend.domain.echo;
 
-import io.vertx.core.AbstractVerticle;
+import com.anasdidi.backend.common.CommonContstant;
+import com.anasdidi.backend.common.CommonVerticle;
+
 import io.vertx.core.Promise;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
-import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 
-public class EchoVerticle extends AbstractVerticle {
+public class EchoVerticle extends CommonVerticle {
 
   private final Router router;
 
@@ -18,31 +19,20 @@ public class EchoVerticle extends AbstractVerticle {
 
   @Override
   public void start(Promise<Void> startPromise) throws Exception {
-    router.get("/echo").handler(this::echoHelloWorld);
-    router.get("/echo/:name").handler(this::echoHelloName);
+    router.get("/echo").handler(this::doHelloWorld);
+    router.get("/echo/:name").handler(this::doHelloName);
   }
 
-  public void echoHelloWorld(RoutingContext routingContext) {
+  public void doHelloWorld(RoutingContext routingContext) {
     HttpServerResponse response = routingContext.response();
-    response//
-        .putHeader("Content-Type", "application/json")//
-        .putHeader("Accept", "application/json");
-    response.end(new JsonObject()//
-        .put("data", "Hello World")//
-        .encode());
+    sendResponse(response, CommonContstant.Status.OK, "Hello World");
   }
 
-  public void echoHelloName(RoutingContext routingContext) {
+  public void doHelloName(RoutingContext routingContext) {
     HttpServerRequest request = routingContext.request();
-    HttpServerResponse response = routingContext.response();
-
     String name = request.getParam("name");
 
-    response//
-        .putHeader("Content-Type", "application/json")//
-        .putHeader("Accept", "application/json");
-    response.end(new JsonObject()//
-        .put("data", "Hello " + name)//
-        .encode());
+    HttpServerResponse response = routingContext.response();
+    sendResponse(response, CommonContstant.Status.OK, "Hello " + name);
   }
 }
