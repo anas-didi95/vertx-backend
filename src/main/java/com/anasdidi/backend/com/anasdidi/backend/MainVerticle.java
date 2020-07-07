@@ -9,7 +9,7 @@ public class MainVerticle extends AbstractVerticle {
 	public void start(final Promise<Void> startPromise) throws Exception {
 		int port = -1;
 		try {
-			port = Integer.parseInt(System.getenv("server.port"));
+			port = Integer.parseInt(System.getProperty("server.port"));
 		} catch (Exception e) {
 			port = 8888;
 		}
