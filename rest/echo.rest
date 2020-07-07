@@ -1,0 +1,9 @@
+http://localhost:8888/echo
+Accept: application/json
+Content-Type: application/json
+
+###
+
+http://localhost:8888/echo/anas
+Accept: application/json
+Content-Type: application/json
