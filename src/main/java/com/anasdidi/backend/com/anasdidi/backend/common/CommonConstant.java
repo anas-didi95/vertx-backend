@@ -2,6 +2,8 @@ package com.anasdidi.backend.common;
 
 public class CommonConstant {
 
+  public static final String REQUEST_ID = "requestId";
+
   public enum Status {
     OK(200, "Ok");
 

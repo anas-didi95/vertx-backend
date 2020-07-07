@@ -25,11 +25,19 @@ public class EchoVerticle extends CommonVerticle {
   }
 
   public void doHelloWorld(RoutingContext routingContext) {
+    final String TAG = "[EchoVerticle::doHelloWorld]";
+
     HttpServerRequest request = routingContext.request();
-    String s = request.getParam("s");
+    JsonObject requestBody = new JsonObject()//
+        .put(CommonConstant.REQUEST_ID, (String) routingContext.get(CommonConstant.REQUEST_ID))//
+        .put("s", request.getParam("s"));
+    vertx.eventBus().send(CommonConstant.Event.LOGGER_DEBUG.key(),
+        TAG + " :: requestBody=" + requestBody.encodePrettily());
 
     HttpServerResponse response = routingContext.response();
-    sendResponse(response, CommonConstant.Status.OK, (s != null && !s.isBlank() ? s : "Hello World"));
+    sendResponse(response, CommonConstant.Status.OK,
+        (requestBody.getString("s") != null && !requestBody.getString("s").isBlank() ? requestBody.getString("s")
+            : "Hello World"));
   }
 
   public void doHelloName(RoutingContext routingContext) {
@@ -37,6 +45,7 @@ public class EchoVerticle extends CommonVerticle {
 
     HttpServerRequest request = routingContext.request();
     JsonObject requestBody = new JsonObject()//
+        .put(CommonConstant.REQUEST_ID, (String) routingContext.get(CommonConstant.REQUEST_ID))//
         .put("name", request.getParam("name"));
     vertx.eventBus().send(CommonConstant.Event.LOGGER_DEBUG.key(),
         TAG + " :: requestBody=" + requestBody.encodePrettily());

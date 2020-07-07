@@ -1,5 +1,7 @@
 package com.anasdidi.backend;
 
+import com.anasdidi.backend.common.CommonConstant;
+import com.anasdidi.backend.common.CommonUtil;
 import com.anasdidi.backend.domain.echo.EchoVerticle;
 
 import io.vertx.core.AbstractVerticle;
@@ -22,6 +24,11 @@ public class MainVerticle extends AbstractVerticle {
 
     Router router = Router.router(vertx);
     router.route().handler(BodyHandler.create());
+    router.route().path("/*").handler(routingContext -> {
+      routingContext.put(CommonConstant.REQUEST_ID, CommonUtil.generateUUID());
+      routingContext.next();
+    });
+
     vertx.deployVerticle(new LoggerVerticle());
     vertx.deployVerticle(new EchoVerticle(router));
 
