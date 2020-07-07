@@ -25,7 +25,8 @@ public class CommonConstant {
   }
 
   public enum Event {
-    LOGGER_DEBUG("logger_event_debug");
+    LOGGER_DEBUG("logger_event_debug"), //
+    LOGGER_ERROR("logger_event_error");
 
     private String key;
 

@@ -23,6 +23,7 @@ public class LoggerVerticle extends CommonVerticle {
   public void start(Promise<Void> startPromise) throws Exception {
     EventBus eventBus = vertx.eventBus();
 
+    eventBus.consumer(CommonConstant.Event.LOGGER_ERROR.key()).handler(this::eventLogError);
     if (isDebug) {
       eventBus.consumer(CommonConstant.Event.LOGGER_DEBUG.key()).handler(this::eventLogDebug);
     }
@@ -31,5 +32,10 @@ public class LoggerVerticle extends CommonVerticle {
   private void eventLogDebug(Message<Object> msg) {
     String body = (String) msg.body();
     System.out.println(FORMATTER.format(LocalDateTime.now()) + " DEBUG " + body);
+  }
+
+  private void eventLogError(Message<Object> msg) {
+    String body = (String) msg.body();
+    System.out.println(FORMATTER.format(LocalDateTime.now()) + " ERROR " + body);
   }
 }
